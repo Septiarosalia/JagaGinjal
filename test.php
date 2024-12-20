@@ -29,13 +29,14 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
     href="https://fonts.googleapis.com/css?family=Poppins:300,400,700&display=swap"
     rel="stylesheet"/>
     <link rel="stylesheet" href="custom.css" />
-    <title>Jaga Ginjal</title>
+    <title>Cek Ginjal Yuk!</title>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #f8f9fa;
             color: #333;
         }
+        /* Header */
         .header {
             background: linear-gradient(135deg, #6dd5ed, #2193b0); /* Gradient biru */
             padding: 15px 0;
@@ -58,31 +59,27 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
             color: white;
             margin-bottom: 0;
         }
-
-        footer {
-        background-color: #2193b0;
-        color: #fff;
-        padding: 10px 0;
-        text-align: center;
-        margin-top: 50px;
-      }
-      footer a {
-        color: #6dd5ed;
-        text-decoration: none;
-      }
         </style>
 </head>
 <body>
     <!-- Header -->
     <div class="header">
         <div class="container d-flex justify-content-between align-items-center">
+            <!-- Logo -->
             <div class="d-flex align-items-center">
-                <img src="gambar/JAGAGINJAL.png" alt="Logo Jaga Ginjal" class="img-fluid">
+                <img src="gambar/logo.png" alt="Logo Cek Ginjal Yuk!" class="img-fluid">
             </div>
-            <div class="d-flex align-items-center">
-                <h5 class="mr-3">Welcome, Septia Rosalia!</h5>
+            <!-- Welcome Text dan Logout -->
+            <div>
+                <h5 class="d-inline-block mb-0 mr-3">
+                    Welcome, 
+                    <?php
+                    // Tampilkan nama pengguna yang login
+                    echo htmlspecialchars($_SESSION['nama']);
+                    ?>
+                </h5>
                 <a href="logout.php" class="btn btn-danger" onclick="return confirmLogout();">Log Out</a>
-            </div>
+                </div>
         </div>
     </div>
 
@@ -95,6 +92,11 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
                     <form action="" method="post" enctype="multipart/form-data" role="form">
                     <?php
                         $id_penyakit=1;
+                        // if(!isset($_SESSION['id_penyakit'])){
+                        //     $_SESSION['id_penyakit'] = $id_penyakit;
+                        // }else{
+                        //     $id_penyakit = $_SESSION['id_penyakit'];
+                        // }
                         $id = gejala($id_penyakit);
                         $id_gejala = intval($id);
                         if(!isset($_SESSION['id_gejala'])){
@@ -103,6 +105,7 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
                             $id_gejala = $_SESSION['id_gejala'];
                         }
                         $data = mysqli_query($koneksi, "SELECT gejala FROM gejala WHERE id_gejala = '$id_gejala'");
+                        // var_dump($data);
                         $row = mysqli_fetch_assoc($data);
                     ?>
                     <p class="mb-4">
@@ -115,6 +118,7 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
                         $temp = 0;
                         $_SESSION['id_gejala'] = $id_gejala;
                         $next_gejala = $_SESSION['id_gejala'];
+                        // $next_penyakit = $_SESSION['id_penyakit'];
                         if(isset($_POST['ya'])){
                             if(isset($id_gejala)){
                                 $temp = $id_gejala;
@@ -127,6 +131,8 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
                         else if(isset($_POST['tidak'])){
                             $next_gejala = $id_gejala + 1;
                             $_SESSION['id_gejala'] = $next_gejala;
+                            // $next_penyakit = $id_penyakit += 1;
+                            // $_SESSION['id_penyakit'] = $next_penyakit;
                         }
                         if($_SESSION['id_gejala'] > 27) {
                         
@@ -147,6 +153,8 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
                         $GinjalAkut = $nilai/count($ginjalAkut);
                         $Akut = number_format($GinjalAkut,3);
                         $hasilGinjalAkut = $Akut *100;
+                        // echo $hasilGinjalAkut;
+                        // echo '<br>';
                         $_SESSION['ginjalAkut'] = $hasilGinjalAkut;
                         $nilai = 0;
                         foreach ($persentase as $value) {
@@ -159,6 +167,8 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
                         $GinjalKronis = $nilai/count($ginjalKronis);
                         $Kronis = number_format($GinjalKronis,3);
                         $hasilGinjalKronis = $Kronis *100;
+                        // echo $hasilGinjalKronis;
+                        // echo '<br>';
                         $_SESSION['ginjalKronis'] = $hasilGinjalKronis;
                         $nilai = 0;
                         foreach ($persentase as $value) {
@@ -171,6 +181,8 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
                         $BatuGinjal = $nilai/count($batuGinjal);
                         $Batu = number_format($BatuGinjal,3);
                         $hasilBatuGinjal = $Batu *100;
+                        // echo $hasilBatuGinjal;
+                        // echo '<br>';
                         $_SESSION['batuGinjal'] = $hasilBatuGinjal;
                         $nilai = 0;
                         foreach ($persentase as $value) {
@@ -183,6 +195,8 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
                         $InfeksiGinjal = $nilai/count($infeksiGinjal);
                         $Infeksi = number_format($InfeksiGinjal,3);
                         $hasilInfeksiGinjal = $Infeksi *100;
+                        // echo $hasilInfeksiGinjal;
+                        // echo '<br>';
                         $_SESSION['infeksiGinjal'] = $hasilInfeksiGinjal;
                         $nilai = 0;
                         foreach ($persentase as $value) {
@@ -195,6 +209,8 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
                         $KankerGinjal = $nilai/count($kankerGinjal);
                         $Kanker = number_format($KankerGinjal,3);
                         $hasilKankerGinjal = $Kanker *100;
+                        // echo $hasilKankerGinjal;
+                        // echo '<br>';
                         $_SESSION['kankerGinjal'] = $hasilKankerGinjal;
                         $nilai = 0;
                         foreach ($persentase as $value) {
@@ -207,6 +223,8 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
                         $GagalGinjal = $nilai/count($gagalGinjal);
                         $Gagal = number_format($GagalGinjal,3);
                         $hasilGagalGinjal = $Gagal *100;
+                        // echo $hasilGagalGinjal;
+                        // echo '<br>';
                         $_SESSION['gagalGinjal'] = $hasilGagalGinjal;
                         header('Location:hasil.php');
                     }
@@ -217,23 +235,11 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
                     </form>
                 <div class="col d-none d-sm-block">
                     <img width="500" src="gambar/jawab.png" alt="hero" />
-                    <a href="dashboard.php" class="btn btn-primary back-button mt-3">Back</a>
                 </div>
             </div>
         </div>
     </section>
 </body>
-
-<!-- Footer -->
-<footer>
-        <div class="container">
-            <p>&copy; 2024 Jaga Ginjal - All Rights Reserved</p>
-            <p>
-                <a href="privacy.php">Privacy Policy</a> |
-                <a href="terms.php">Terms of Service</a>
-            </p>
-        </div>
-    </footer>
 
 <script
     src="https://code.jquery.com/jquery-3.4.1.js"
@@ -255,4 +261,9 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"
 ></script>
+<script>
+    function confirmLogout() {
+        return confirm("Apakah Anda yakin ingin logout?");
+    }
+    </script>
 </html>
