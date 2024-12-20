@@ -83,6 +83,7 @@ THEN penyakit = "Gagal Ginjal"
 Persentasi Kecocokan = (Jumlah Gejala yang Cocok / Jumlah Gejala yang Ada di Aturan) x 100
 
 **Referensi**
+
 Hasanah, U., Dewi, N. R., Ludiana, L., Pakarti, A. T., & Inayati, A. (2023). Analisis Faktor-Faktor Risiko Terjadinya Penyakit Ginjal Kronik Pada Pasien Hemodialisis. Jurnal Wacana Kesehatan, 8(2), 96. https://doi.org/10.52822/jwk.v8i2.531
 
 Husna, C. (2012). Gagal Ginjal Kronis Dan Penanganannya. Jurnal Keperawatan, 3(2), 67–73.
