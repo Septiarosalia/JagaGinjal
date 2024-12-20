@@ -10,6 +10,7 @@ if (mysqli_connect_errno()) {
     echo "Koneksi Database Gagal : " . mysqli_connect_error();
 }
 
+// Fungsi untuk mengambil data dari database
 function getData($query) {
     global $koneksi;
     $result = mysqli_query($koneksi, $query);
@@ -18,7 +19,61 @@ function getData($query) {
         $rows[] = $row;
     }
     return $rows;
+
+// Fungsi getData
+if (!function_exists('getData')) {
+    function getData($table) {
+        global $koneksi;
+        $query = "SELECT * FROM $table";
+        $result = mysqli_query($koneksi, $query);
+
+        $data = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+        return $data;
+    }
 }
+
+// Fungsi lain yang dibutuhkan
+if (!function_exists('insertData')) {
+    function insertData($table, $data) {
+        global $koneksi;
+
+        $columns = implode(", ", array_keys($data));
+        $values = implode("', '", array_map('mysqli_real_escape_string', array_values($data)));
+
+        $query = "INSERT INTO $table ($columns) VALUES ('$values')";
+        return mysqli_query($koneksi, $query);
+    }
+}
+
+if (!function_exists('updateData')) {
+    function updateData($table, $data, $condition) {
+        global $koneksi;
+
+        $set = [];
+        foreach ($data as $key => $value) {
+            $set[] = "$key = '" . mysqli_real_escape_string($koneksi, $value) . "'";
+        }
+        $setClause = implode(", ", $set);
+
+        $query = "UPDATE $table SET $setClause WHERE $condition";
+        return mysqli_query($koneksi, $query);
+    }
+}
+
+if (!function_exists('deleteData')) {
+    function deleteData($table, $condition) {
+        global $koneksi;
+        $query = "DELETE FROM $table WHERE $condition";
+        return mysqli_query($koneksi, $query);
+    }
+}
+}
+
+
+
 
 if (isset($_GET["act"])) {
     $act = $_GET["act"];
@@ -121,29 +176,30 @@ function login() {
     global $koneksi;
     $nama = htmlspecialchars($_POST["nama"]);
     $input_pass = htmlspecialchars($_POST['password']);
-    $query = mysqli_query($koneksi, "SELECT * FROM user where nama = '$nama'");
+    $query = mysqli_query($koneksi, "SELECT * FROM user WHERE nama = '$nama'");
     $data = mysqli_fetch_assoc($query);
     
-    if($data) {
+    if ($data) {
         $password = $data['password'];
-        $role = $data['role'];
+        $role = (int)$data['role']; // Pastikan role disimpan sebagai integer
         
-        if(password_verify($input_pass, $password)) {
+        if (password_verify($input_pass, $password)) {
+            // Simpan data pengguna ke dalam session
             $_SESSION['id_user'] = $data['id_user'];
             $_SESSION['nama'] = $data['nama'];
+            $_SESSION['logged_in'] = true;
+            $_SESSION['role'] = $role; // Simpan role ke session
             
-            if($role == "1") {
-                $_SESSION['role'] = 1;
+            // Redirect sesuai role
+            if ($role === 1) {
                 echo "<script>
                 document.location.href = 'dashboard.php';
                 </script>";
-            } elseif($role == "0") {
-                $_SESSION['role'] = 0;
+            } elseif ($role === 0) {
                 echo "<script>
                 document.location.href = 'indexAdmin.php';
                 </script>";
-            } elseif($role == "2") {
-                $_SESSION['role'] = 2;
+            } elseif ($role === 2) {
                 echo "<script>
                 document.location.href = 'indexPakar.php';
                 </script>";
