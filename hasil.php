@@ -10,7 +10,9 @@ if (isset($_SESSION['role'])) {
     header("location:index.php");
 }
 
+// Logika untuk tombol Cek Ulang
 if(isset($_POST['cek_ulang'])) {
+    // Reset session diagnosa
     unset($_SESSION['persentase']);
     unset($_SESSION['id_gejala']);
     unset($_SESSION['ginjalAkut']);
@@ -20,11 +22,12 @@ if(isset($_POST['cek_ulang'])) {
     unset($_SESSION['kankerGinjal']);
     unset($_SESSION['gagalGinjal']);
     
+    // Redirect ke halaman test
     header("Location: test.php");
     exit;
 }
 if (isset($_POST['simpan_diagnosa'])) {
-    $id_user = $_SESSION['id_user'];
+    $id_user = $_SESSION['id_user']; // ID user dari sesi login
     $hasil_diagnosa = "Gagal Ginjal Akut = {$_SESSION['ginjalAkut']}%, 
                        Gagal Ginjal Kronis = {$_SESSION['ginjalKronis']}%, 
                        Batu Ginjal = {$_SESSION['batuGinjal']}%, 
@@ -32,6 +35,7 @@ if (isset($_POST['simpan_diagnosa'])) {
                        Kanker Ginjal = {$_SESSION['kankerGinjal']}%, 
                        Gagal Ginjal = {$_SESSION['gagalGinjal']}%";
 
+    // Ambil solusi berdasarkan penyakit dengan skor tertinggi
     $solusi = "";
     $id_penyakit = maximum(
         $_SESSION['ginjalAkut'], 
@@ -48,6 +52,7 @@ if (isset($_POST['simpan_diagnosa'])) {
         $solusi .= $row['solusi'] . "\n";
     }
 
+    // Simpan hasil diagnosa dan solusi ke database
     $query_insert = "INSERT INTO history_diagnosa (id_user, hasil_diagnosa, solusi) 
                      VALUES ('$id_user', '$hasil_diagnosa', '$solusi')";
     mysqli_query($koneksi, $query_insert);
@@ -83,30 +88,21 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
             background-color: #f8f9fa;
             color: #333;
         }
-
-        footer {
-        background-color: #2193b0;
-        color: #fff;
-        padding: 10px 0;
-        text-align: center;
-        margin-top: 50px;
-      }
-      footer a {
-        color: #6dd5ed;
-        text-decoration: none;
-      }
         </style>
 </head>
 <body>
 <!-- Header -->
 <div class="header" style="background: linear-gradient(135deg, #6dd5ed, #2193b0); border-radius: 0 0 30px 30px; padding: 20px 0; color: #fff;">
     <div class="container d-flex justify-content-between align-items-center">
+        <!-- Bagian Kiri: Logo -->
         <div class="d-flex align-items-center">
-            <img src="gambar/JAGAGINJAL.png" alt="Logo Jaga Ginjal" style="max-height: 50px;">
+            <img src="gambar/logo.png" alt="Logo Cek Ginjal Yuk!" style="max-height: 50px;">
         </div>
 
+        <!-- Bagian Tengah: Judul -->
         <h3 class="mb-0 font-weight-bold text-center" style="flex-grow: 1;">Hasil Diagnosa Anda</h3>
 
+        <!-- Bagian Kanan: Tombol Navigasi -->
         <div class="d-flex">
             <a href="dashboard.php" class="btn btn-success mr-2" style="border-radius: 20px; padding: 8px 15px;">
                 Dashboard
@@ -125,6 +121,7 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
         </div>
     </div>
 </div>
+
 
     <section class="hasil mt-4">
         <div class="container">
@@ -185,6 +182,7 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
                     }
                     ?>
 
+                    <!-- Tombol Simpan Hasil Diagnosa -->
                     <form action="diagnosa.php" method="POST">
                     <button type="submit" class="btn btn-success">Simpan Hasil Diagnosa</button>
                     </form>
@@ -196,16 +194,7 @@ $gejala = mysqli_query($koneksi, "SELECT * FROM gejala");
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Jaga Ginjal - All Rights Reserved</p>
-            <p>
-                <a href="privacy.php">Privacy Policy</a> |
-                <a href="terms.php">Terms of Service</a>
-            </p>
-        </div>
-    </footer>
+    
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
