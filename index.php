@@ -1,10 +1,33 @@
-<?php include 'function.php'; ?>
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start(); // Mulai sesi jika belum dimulai
+}
+
+// Periksa apakah pengguna sudah login
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    // Redirect sesuai role
+    if ($_SESSION['role'] === 1) {
+        header("Location: dashboard.php"); // Role 1 diarahkan ke dashboard
+        exit;
+    } elseif ($_SESSION['role'] === 0) {
+        header("Location: indexAdmin.php"); // Role 0 diarahkan ke indexAdmin
+        exit;
+    } elseif ($_SESSION['role'] === 2) {
+        header("Location: indexPakar.php"); // Role 2 diarahkan ke indexPakar
+        exit;
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jaga Ginjal</title>
+    <title>Cek Ginjal Yuk!</title>
+
+    <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -60,7 +83,7 @@
         box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
       }
       footer {
-        background: #2193b0;
+        background: #333;
         color: #fff;
       }
       footer a {
@@ -79,7 +102,7 @@
     <nav class="navbar py-2 navbar-expand-lg navbar-light">
       <div class="container">
         <a class="navbar-brand" href="#">
-          <img src="gambar/JAGAGINJAL.png" width="147" alt="logo" />
+          <img src="gambar/logo.png" width="147" alt="logo" />
         </a>
         <button
           class="navbar-toggler"
@@ -97,7 +120,7 @@
             <li class="nav-item">
               <a class="nav-link" href="#alur">Alur Kerja</a>
             </li>
-
+            <!-- Login Button -->
             <li>
               <button
                 type="button"
@@ -116,20 +139,22 @@
       </div>
     </nav>
 
+    <!-- Welcome Section -->
     <section id="welcome" class="welcome-section">
       <div class="container">
-        <h1>Selamat Datang di <span class="text-warning">Jaga Ginjal</span></h1>
-        <p class="lead">Solusi cepat dan tepat untuk memeriksa dan menjaga kesehatan ginjal Anda.</p>
+        <h1>Selamat Datang di <span class="text-warning">Cek Ginjal Yuk!</span></h1>
+        <p class="lead">Solusi cepat dan tepat untuk memeriksa kesehatan ginjal Anda.</p>
       </div>
     </section>
 
+    <!-- Hero Section -->
     <section class="heroBWA mt-5">
       <div class="container">
         <div class="row">
           <div class="col align-self-center">
-            <h1 class="mb-4">Jaga Ginjal</h1>
+            <h1 class="mb-4">Cek Ginjal Yuk!</h1>
             <p class="mb-4">
-              Sistem informasi berbasis web untuk memeriksa dan menjaga kondisi ginjal Anda
+              Sistem informasi berbasis web untuk memeriksa kondisi ginjal Anda
               menggunakan teknologi sistem pakar. Jawab beberapa pertanyaan dan
               dapatkan hasil diagnosis serta solusinya.
             </p>
@@ -142,6 +167,7 @@
       </div>
     </section>
 
+    <!-- Alur Kerja -->
     <section id="alur" class="mt-5">
       <div class="container text-center">
         <h2 style="font-weight: bold">Alur Kerja Sistem Pakar</h2>
@@ -171,6 +197,7 @@
       </div>
     </section>
 
+    <!-- Login Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -198,7 +225,7 @@
     <!-- Footer -->
     <footer class="py-4">
       <div class="container text-center">
-        <p>&copy; 2024 Jaga Ginjal - All Rights Reserved</p>
+        <p>&copy; 2024 Cek Ginjal Yuk! - All Rights Reserved</p>
         <p>
           <a href="privacy.php">Privacy Policy</a> |
           <a href="terms.php">Terms of Service</a>
@@ -206,6 +233,7 @@
       </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   </body>
