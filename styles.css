@@ -1,0 +1,144 @@
+body {
+    margin: 0;
+    font-family: 'Franklin Gothic Medium';
+}
+
+.kiri {
+    margin: 1%;
+    margin-top: auto;
+    width: 15%;
+    height: auto;
+    border-radius: 5px 5px 5px 5px;
+    float: left;
+    
+}
+
+.kanan {
+    margin: 1%;
+    margin-top: auto;
+    width: 75%;
+    height: auto;
+    float: left;
+}
+
+.logo {
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    align-content: center;
+}
+
+
+.teks {
+    font-size: medium;
+}
+
+#tess {
+    font-size: xx-large;
+    font-weight: 600;
+}
+
+
+.isi1{
+    text-align: center;
+    padding: 10px;
+    color: #6dd5ed;
+}
+
+.isi1:hover{
+    background-color: #6dd5ed;
+}
+
+.isi2{
+    text-align: center;
+    padding: 10px;
+    color: #6dd5ed;
+}
+
+
+span{
+
+    color: #000;
+
+}
+
+.sidebar-heading {
+    color: #ffff;
+    background-color: #4183D7;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.nav-link {
+    text-align: left;
+}
+
+
+.content {
+    padding: 20px 80px;
+    text-align: justify;
+}
+
+.dashboard-header {
+    margin-top: 20px; /* Tambahkan jarak ke atas */
+  }
+  
+  .card {
+    margin: 0px; /* Memberikan margin agar tidak terlalu mepet */
+}
+
+.card-header {
+    padding: 15px; /* Memberikan jarak di dalam header card */
+}
+
+.card-body {
+    padding: 0px; /* Jarak di dalam card body */
+}
+
+.table {
+    margin: 0; /* Menghilangkan margin tabel */
+    width: 200%; /* Tabel memanfaatkan lebar penuh */
+    border-collapse: collapse; /* Menghilangkan spasi antar border */
+}
+
+
+.table th, .table td {
+    text-align: center; /* Teks berada di tengah kolom */
+    padding: 12px; /* Jarak di dalam sel tabel */
+}
+
+.table-bordered {
+    border: 1px solid #ddd; /* Menambahkan border yang tipis */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f9f9f9; /* Warna background saat baris dihover */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f2f2; /* Striping warna untuk baris ganjil */
+}
+
+
+.data-table {
+    margin: 0 auto;
+    width: 250%; 
+    border-collapse: collapse;
+}
+
+.data-tablee {
+    margin: 0 auto; 
+    width: 100%; 
+    border-collapse: collapse;
+}
+
+.data-table th, .data-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+
+
+
