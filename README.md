@@ -84,8 +84,11 @@ Persentasi Kecocokan = (Jumlah Gejala yang Cocok / Jumlah Gejala yang Ada di Atu
 
 **Referensi**
 Hasanah, U., Dewi, N. R., Ludiana, L., Pakarti, A. T., & Inayati, A. (2023). Analisis Faktor-Faktor Risiko Terjadinya Penyakit Ginjal Kronik Pada Pasien Hemodialisis. Jurnal Wacana Kesehatan, 8(2), 96. https://doi.org/10.52822/jwk.v8i2.531
+
 Husna, C. (2012). Gagal Ginjal Kronis Dan Penanganannya. Jurnal Keperawatan, 3(2), 67–73.
+
 Siagian, K. N., & Damayanty, A. E. (2018). Artikel Penelitian Identifikasi Penyebab Penyakit Ginjal Kronik Pada Usia Dibawah 45 Tahun di Unit Hemodialisis Rumah Sakit Ginjal Rasyida Medan Tahun 2015. Jurnal Kedokteran Anatomica (Anatomica Medical Journal), 1(3), 159–166. https://jurnal.umsu.ac.id/index.php/AMJ/article/view/2222
+
 Susanti, S., & Sulistyana, C. S. (2021). Pengaruh Coaching Support Terhadap Kepatuhan Penderita Chronic Kidney Disease (CKD). Jurnal Kesehatan Vokasional, 5(4), 217. https://doi.org/10.22146/jkesvo.59212
 
 
